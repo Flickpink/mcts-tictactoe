@@ -266,7 +266,12 @@ impl MCTS<GameState> for GameState {
         let mut game_states = Vec::new();
         for mv in legal_moves {
             let mut gs = self.clone();
+            
+            // This gives no stackoverflow, but ends the process, when the
+            // algorithm reaches its first terminal state.
+            // exec_move(Some(mv));
             gs.exec_mcts_move(Some(mv));
+            
             game_states.push(gs);
         }
         game_states
